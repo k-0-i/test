@@ -4,62 +4,97 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>个人主页</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* 全局样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-            color: #fff;
-            min-height: 100vh;
+            font-family: 'Roboto', sans-serif;
+            background: radial-gradient(circle, rgba(36, 40, 47, 1) 0%, rgba(28, 31, 36, 1) 100%);
+            color: #ffffff;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0;
-            font-family: Arial, sans-serif;
+            min-height: 100vh;
         }
-        .card {
-            background: #fff;
-            color: #333;
-            padding: 20px;
+
+        /* 容器样式 */
+        .container {
+            text-align: center;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 30px 20px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1.2s ease-out;
         }
-        .card h1 {
-            font-size: 2rem;
-            color: #2575fc;
+
+        /* 标题样式 */
+        .container h1 {
+            font-size: 2.5rem;
+            color: #4db5ff;
+            margin-bottom: 20px;
+            text-transform: uppercase;
         }
-        .list-group-item {
-            border: none;
+
+        /* 列表样式 */
+        .links {
+            list-style: none;
         }
-        a {
-            color: #2575fc;
+        .links li {
+            margin: 15px 0;
+        }
+        .links a {
             text-decoration: none;
+            font-weight: 700;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: 2px solid #4db5ff;
+            border-radius: 50px;
+            transition: all 0.3s ease-in-out;
         }
-        a:hover {
-            text-decoration: underline;
+        .links a:hover {
+            background: #4db5ff;
+            color: #000000;
+        }
+
+        /* 动画效果 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 响应式样式 */
+        @media (max-width: 768px) {
+            .container h1 {
+                font-size: 2rem;
+            }
+            .links a {
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="card text-center">
-            <h1>欢迎来到我的主页</h1>
-            <p class="mb-4">以下是我的联系方式和常用网站：</p>
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <a href="https://yourblog.com" target="_blank">我的博客</a>
-                </li>
-                <li class="list-group-item">
-                    邮箱：<a href="mailto:yourname@example.com">yourname@example.com</a>
-                </li>
-                <li class="list-group-item">
-                    <a href="https://github.com/yourusername" target="_blank">GitHub</a>
-                </li>
-                <li class="list-group-item">
-                    <a href="https://twitter.com/yourusername" target="_blank">Twitter</a>
-                </li>
-            </ul>
-        </div>
+        <h1>欢迎访问我的主页</h1>
+        <p>以下是我的个人信息和常用链接：</p>
+        <ul class="links">
+            <li><a href="https://yourblog.com" target="_blank">我的博客</a></li>
+            <li><a href="mailto:yourname@example.com">发送邮件</a></li>
+            <li><a href="https://github.com/yourusername" target="_blank">GitHub 仓库</a></li>
+            <li><a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a></li>
+        </ul>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
