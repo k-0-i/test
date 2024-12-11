@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>个人主页</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
     <style>
         /* 全局样式 */
         * {
@@ -13,88 +13,92 @@
             box-sizing: border-box;
         }
         body {
-            font-family: 'Roboto', sans-serif;
-            background: radial-gradient(circle, rgba(36, 40, 47, 1) 0%, rgba(28, 31, 36, 1) 100%);
-            color: #ffffff;
+            font-family: 'Noto Serif SC', serif;
+            background: linear-gradient(135deg, #1c1f26, #2d313b);
+            color: #fff;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
+            background-attachment: fixed;
+        }
+        h1, h2, p {
+            margin: 10px 0;
         }
 
-        /* 容器样式 */
-        .container {
+        /* 顶部头像与名字 */
+        .profile {
             text-align: center;
-            max-width: 600px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 30px 20px;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-            animation: fadeIn 1.2s ease-out;
+            margin-bottom: 30px;
+        }
+        .profile img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            margin-bottom: 10px;
+        }
+        .profile h1 {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        .profile p {
+            font-size: 0.9rem;
+            color: #ccc;
+            margin-top: 5px;
         }
 
-        /* 标题样式 */
-        .container h1 {
-            font-size: 2.5rem;
-            color: #4db5ff;
+        /* 欢迎文本 */
+        .welcome {
+            text-align: center;
             margin-bottom: 20px;
-            text-transform: uppercase;
+        }
+        .welcome h2 {
+            font-size: 1.5rem;
+            color: #4db5ff;
         }
 
-        /* 列表样式 */
-        .links {
-            list-style: none;
+        /* 按钮样式 */
+        .button-container {
+            text-align: center;
         }
-        .links li {
-            margin: 15px 0;
-        }
-        .links a {
+        .button-container a {
             text-decoration: none;
-            font-weight: 700;
-            color: #ffffff;
-            padding: 10px 20px;
-            border: 2px solid #4db5ff;
+            color: #fff;
+            font-size: 1rem;
+            padding: 10px 30px;
+            background: linear-gradient(135deg, #4db5ff, #0072ff);
             border-radius: 50px;
-            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
         }
-        .links a:hover {
-            background: #4db5ff;
-            color: #000000;
-        }
-
-        /* 动画效果 */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .button-container a:hover {
+            background: linear-gradient(135deg, #0072ff, #4db5ff);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
         }
 
-        /* 响应式样式 */
-        @media (max-width: 768px) {
-            .container h1 {
-                font-size: 2rem;
-            }
-            .links a {
-                font-size: 0.9rem;
-            }
+        /* 底部版权信息 */
+        footer {
+            position: absolute;
+            bottom: 10px;
+            font-size: 0.8rem;
+            color: #aaa;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>欢迎访问我的主页</h1>
-        <p>以下是我的个人信息和常用链接：</p>
-        <ul class="links">
-            <li><a href="https://yourblog.com" target="_blank">我的博客</a></li>
-            <li><a href="mailto:yourname@example.com">发送邮件</a></li>
-            <li><a href="https://github.com/yourusername" target="_blank">GitHub 仓库</a></li>
-            <li><a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a></li>
-        </ul>
+    <div class="profile">
+        <img src="your-avatar-url.jpg" alt="头像">
+        <h1>寒光</h1>
+        <p>努力到无能为力，拼搏到感动自己。</p>
     </div>
+    <div class="welcome">
+        <h2>欢迎来到我的主页</h2>
+    </div>
+    <div class="button-container">
+        <a href="https://your-link.com" target="_blank">查看我的个人信息</a>
+    </div>
+    <footer>© 2024 by HanGuang</footer>
 </body>
 </html>
