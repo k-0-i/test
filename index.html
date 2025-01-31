@@ -1,104 +1,91 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>个人主页</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+    <title>博客导航页</title>
     <style>
-        /* 全局样式 */
-        * {
-            margin: 0;
+        /* 基础样式 */
+        #recent-posts {
+            list-style: none;
             padding: 0;
-            box-sizing: border-box;
+            max-width: 600px;
+            margin: 20px auto;
         }
-        body {
-            font-family: 'Noto Serif SC', serif;
-            background: linear-gradient(135deg, #1c1f26, #2d313b);
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            background-attachment: fixed;
-        }
-        h1, h2, p {
+        #recent-posts li {
             margin: 10px 0;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
         }
-
-        /* 顶部头像与名字 */
-        .profile {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .profile img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-            margin-bottom: 10px;
-        }
-        .profile h1 {
-            font-size: 1.8rem;
+        #recent-posts a {
+            text-decoration: none;
+            color: #2c3e50;
             font-weight: bold;
         }
-        .profile p {
-            font-size: 0.9rem;
-            color: #ccc;
-            margin-top: 5px;
+        #recent-posts a:hover {
+            color: #3498db;
         }
-
-        /* 欢迎文本 */
-        .welcome {
+        .post-date {
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        .loading {
             text-align: center;
-            margin-bottom: 20px;
-        }
-        .welcome h2 {
-            font-size: 1.5rem;
-            color: #4db5ff;
-        }
-
-        /* 按钮样式 */
-        .button-container {
-            text-align: center;
-        }
-        .button-container a {
-            text-decoration: none;
-            color: #fff;
-            font-size: 1rem;
-            padding: 10px 30px;
-            background: linear-gradient(135deg, #4db5ff, #0072ff);
-            border-radius: 50px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-        }
-        .button-container a:hover {
-            background: linear-gradient(135deg, #0072ff, #4db5ff);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
-        }
-
-        /* 底部版权信息 */
-        footer {
-            position: absolute;
-            bottom: 10px;
-            font-size: 0.8rem;
-            color: #aaa;
+            color: #888;
         }
     </style>
 </head>
 <body>
-    <div class="profile">
-        <img src="your-avatar-url.jpg" alt="头像">
-        <h1>寒光</h1>
-        <p>努力到无能为力，拼搏到感动自己。</p>
-    </div>
-    <div class="welcome">
-        <h2>欢迎来到我的主页</h2>
-    </div>
-    <div class="button-container">
-        <a href="https://your-link.com" target="_blank">查看我的个人信息</a>
-    </div>
-    <footer>© 2024 by HanGuang</footer>
+    <h1>最新文章</h1>
+    <ul id="recent-posts">
+        <div class="loading">加载中...</div>
+    </ul>
+
+    <script>
+        // 替换为你的 Typecho 博客 RSS 地址
+        const RSS_URL = 'https://你的博客地址/feed';
+
+        // 获取并解析 RSS
+        async function loadRecentPosts() {
+            try {
+                // 使用 CORS 代理解决跨域问题（可选）
+                const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+                // const response = await fetch(proxyUrl + RSS_URL);
+                const response = await fetch(proxyUrl + RSS_URL, {
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest' // 添加此头部
+                    }
+                });
+                const xmlText = await response.text();
+                
+                // 解析 XML
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(xmlText, "text/xml");
+                
+                // 提取文章数据（取前3篇）
+                const items = xmlDoc.querySelectorAll('item');
+                const posts = Array.from(items).slice(0, 3).map(item => ({
+                    title: item.querySelector('title').textContent,
+                    link: item.querySelector('link').textContent,
+                    date: new Date(item.querySelector('pubDate').textContent).toLocaleDateString()
+                }));
+
+                // 渲染到页面
+                const container = document.getElementById('recent-posts');
+                container.innerHTML = posts.map(post => `
+                    <li>
+                        <a href="${post.link}" target="_blank">${post.title}</a>
+                        <div class="post-date">${post.date}</div>
+                    </li>
+                `).join('');
+                
+            } catch (error) {
+                document.getElementById('recent-posts').innerHTML = 
+                    '<div style="color: red">加载失败，请稍后重试</div>';
+                console.error('RSS 加载错误:', error);
+            }
+        }
+
+        // 页面加载后执行
+        window.addEventListener('DOMContentLoaded', loadRecentPosts);
+    </script>
 </body>
 </html>
