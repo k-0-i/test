@@ -1,91 +1,208 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-    <title>博客导航页</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的博客空间 | 探索与分享</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* 基础样式 */
-        #recent-posts {
-            list-style: none;
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --background-color: #f8f9fa;
+            --text-color: #34495e;
+        }
+
+        * {
+            margin: 0;
             padding: 0;
-            max-width: 600px;
-            margin: 20px auto;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
         }
-        #recent-posts li {
-            margin: 10px 0;
-            padding: 10px;
-            border-bottom: 1px solid #eee;
+
+        body {
+            background: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
         }
-        #recent-posts a {
-            text-decoration: none;
-            color: #2c3e50;
-            font-weight: bold;
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
         }
-        #recent-posts a:hover {
-            color: #3498db;
-        }
-        .post-date {
-            color: #7f8c8d;
-            font-size: 0.9em;
-        }
-        .loading {
+
+        .profile-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
             text-align: center;
-            color: #888;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            border: 3px solid var(--secondary-color);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: #e8f4fc;
+            color: var(--secondary-color);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin: 0.5rem 0;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .articles-list {
+            list-style: none;
+        }
+
+        .article-item {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #eee;
+            transition: background 0.2s;
+        }
+
+        .article-item:hover {
+            background: #f8f9fa;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .social-links a {
+            color: var(--text-color);
+            font-size: 1.5rem;
+            transition: color 0.2s;
+        }
+
+        .social-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .uptime-status {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem auto;
+            }
+            
+            .profile-card {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>最新文章</h1>
-    <ul id="recent-posts">
-        <div class="loading">加载中...</div>
-    </ul>
+    <div class="container">
+        <!-- 个人信息卡片 -->
+        <div class="profile-card">
+            <img src="your-avatar.jpg" alt="头像" class="avatar">
+            <h1>张三的博客空间</h1>
+            <div class="status-badge">📡 已持续运营 328 天</div>
+            <p>探索技术奥秘，分享生活感悟</p>
+            
+            <div class="social-links">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-weixin"></i></a>
+            </div>
+        </div>
 
-    <script>
-        // 替换为你的 Typecho 博客 RSS 地址
-        const RSS_URL = 'https://你的博客地址/feed';
+        <div class="grid">
+            <!-- 博客状态 -->
+            <div class="card">
+                <h2>📈 博客状态</h2>
+                <div class="uptime-status">
+                    <span>在线时间</span>
+                    <span class="status-value">99.9%</span>
+                </div>
+                <div class="uptime-status">
+                    <span>总访问量</span>
+                    <span class="status-value">15,328</span>
+                </div>
+            </div>
 
-        // 获取并解析 RSS
-        async function loadRecentPosts() {
-            try {
-                // 使用 CORS 代理解决跨域问题（可选）
-                const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-                // const response = await fetch(proxyUrl + RSS_URL);
-                const response = await fetch(proxyUrl + RSS_URL, {
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest' // 添加此头部
-                    }
-                });
-                const xmlText = await response.text();
-                
-                // 解析 XML
-                const parser = new DOMParser();
-                const xmlDoc = parser.parseFromString(xmlText, "text/xml");
-                
-                // 提取文章数据（取前3篇）
-                const items = xmlDoc.querySelectorAll('item');
-                const posts = Array.from(items).slice(0, 3).map(item => ({
-                    title: item.querySelector('title').textContent,
-                    link: item.querySelector('link').textContent,
-                    date: new Date(item.querySelector('pubDate').textContent).toLocaleDateString()
-                }));
-
-                // 渲染到页面
-                const container = document.getElementById('recent-posts');
-                container.innerHTML = posts.map(post => `
-                    <li>
-                        <a href="${post.link}" target="_blank">${post.title}</a>
-                        <div class="post-date">${post.date}</div>
+            <!-- 最新文章 -->
+            <div class="card">
+                <h2>📌 最新文章</h2>
+                <ul class="articles-list">
+                    <li class="article-item">
+                        <div>如何构建高可用微服务架构</div>
+                        <small>2024-03-15</small>
                     </li>
-                `).join('');
-                
-            } catch (error) {
-                document.getElementById('recent-posts').innerHTML = 
-                    '<div style="color: red">加载失败，请稍后重试</div>';
-                console.error('RSS 加载错误:', error);
-            }
-        }
+                    <li class="article-item">
+                        <div>前端性能优化实战指南</div>
+                        <small>2024-03-12</small>
+                    </li>
+                    <li class="article-item">
+                        <div>Python 异步编程深入解析</div>
+                        <small>2024-03-10</small>
+                    </li>
+                </ul>
+                <a href="#" class="button" style="display: block; text-align: center; margin-top: 1rem;">查看更多文章 →</a>
+            </div>
 
-        // 页面加载后执行
-        window.addEventListener('DOMContentLoaded', loadRecentPosts);
-    </script>
+            <!-- 快速链接 -->
+            <div class="card">
+                <h2>🔗 快速访问</h2>
+                <ul class="articles-list">
+                    <li class="article-item">
+                        <a href="#">技术文章归档</a>
+                    </li>
+                    <li class="article-item">
+                        <a href="#">生活随笔</a>
+                    </li>
+                    <li class="article-item">
+                        <a href="#">项目展示</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
